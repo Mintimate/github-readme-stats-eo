@@ -1,0 +1,25 @@
+.vercel
+.env
+node_modules
+*.lock
+.idea/
+coverage
+benchmarks
+vercel_token
+
+# test
+tests
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.code-workspace
+
+.vercel
+
+# Tencent Cloud EdgeOne
+.env
+.edgeone
+.tef_dist/*
+  
