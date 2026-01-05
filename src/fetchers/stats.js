@@ -1,17 +1,16 @@
 // @ts-check
 
 import axios from "axios";
-import * as dotenv from "dotenv";
 import githubUsernameRegex from "github-username-regex";
 import { calculateRank } from "../calculateRank.js";
-import { retryer } from "../common/retryer.js";
-import { logger } from "../common/log.js";
 import { excludeRepositories } from "../common/envs.js";
 import { CustomError, MissingParamError } from "../common/error.js";
 import { wrapTextMultiline } from "../common/fmt.js";
 import { request } from "../common/http.js";
+import { logger } from "../common/log.js";
+import { retryer } from "../common/retryer.js";
 
-dotenv.config();
+// Note: Environment variables are automatically available via process.env
 
 // GraphQL queries.
 const GRAPHQL_REPOS_FIELD = `

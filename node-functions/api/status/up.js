@@ -7,9 +7,9 @@
  * @description This function is currently rate limited to 1 request per 5 minutes.
  */
 
-import { request } from "../../src/common/http.js";
-import retryer from "../../src/common/retryer.js";
-import { logger } from "../../src/common/log.js";
+import { request } from "../../../src/common/http.js";
+import { logger } from "../../../src/common/log.js";
+import retryer from "../../../src/common/retryer.js";
 
 export const RATE_LIMIT_SECONDS = 60 * 5; // 1 request per 5 minutes
 

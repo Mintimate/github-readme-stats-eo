@@ -1,47 +1,39 @@
 // @ts-check
 
-import { renderWakatimeCard } from "../src/cards/wakatime.js";
-import { renderError } from "../src/common/render.js";
-import { fetchWakatimeStats } from "../src/fetchers/wakatime.js";
-import { isLocaleAvailable } from "../src/translations.js";
+import { renderRepoCard } from "../../src/cards/repo.js";
+import { guardAccess } from "../../src/common/access.js";
 import {
-  CACHE_TTL,
-  resolveCacheSeconds,
-  setCacheHeaders,
-  setErrorCacheHeaders,
-} from "../src/common/cache.js";
-import { guardAccess } from "../src/common/access.js";
+    CACHE_TTL,
+    resolveCacheSeconds,
+    setCacheHeaders,
+    setErrorCacheHeaders,
+} from "../../src/common/cache.js";
 import {
-  MissingParamError,
-  retrieveSecondaryMessage,
-} from "../src/common/error.js";
-import { parseArray, parseBoolean } from "../src/common/ops.js";
+    MissingParamError,
+    retrieveSecondaryMessage,
+} from "../../src/common/error.js";
+import { parseBoolean } from "../../src/common/ops.js";
+import { renderError } from "../../src/common/render.js";
+import { fetchRepo } from "../../src/fetchers/repo.js";
+import { isLocaleAvailable } from "../../src/translations.js";
 
 // @ts-ignore
 export default async (req, res) => {
   const {
     username,
+    repo,
+    hide_border,
     title_color,
     icon_color,
-    hide_border,
-    card_width,
-    line_height,
     text_color,
     bg_color,
     theme,
+    show_owner,
     cache_seconds,
-    hide_title,
-    hide_progress,
-    custom_title,
     locale,
-    layout,
-    langs_count,
-    hide,
-    api_domain,
     border_radius,
     border_color,
-    display_format,
-    disable_animations,
+    description_lines_count,
   } = req.query;
 
   res.setHeader("Content-Type", "image/svg+xml");
@@ -49,7 +41,7 @@ export default async (req, res) => {
   const access = guardAccess({
     res,
     id: username,
-    type: "wakatime",
+    type: "username",
     colors: {
       title_color,
       text_color,
@@ -79,37 +71,29 @@ export default async (req, res) => {
   }
 
   try {
-    const stats = await fetchWakatimeStats({ username, api_domain });
+    const repoData = await fetchRepo(username, repo);
     const cacheSeconds = resolveCacheSeconds({
       requested: parseInt(cache_seconds, 10),
-      def: CACHE_TTL.WAKATIME_CARD.DEFAULT,
-      min: CACHE_TTL.WAKATIME_CARD.MIN,
-      max: CACHE_TTL.WAKATIME_CARD.MAX,
+      def: CACHE_TTL.PIN_CARD.DEFAULT,
+      min: CACHE_TTL.PIN_CARD.MIN,
+      max: CACHE_TTL.PIN_CARD.MAX,
     });
 
     setCacheHeaders(res, cacheSeconds);
 
     return res.send(
-      renderWakatimeCard(stats, {
-        custom_title,
-        hide_title: parseBoolean(hide_title),
+      renderRepoCard(repoData, {
         hide_border: parseBoolean(hide_border),
-        card_width: parseInt(card_width, 10),
-        hide: parseArray(hide),
-        line_height,
         title_color,
         icon_color,
         text_color,
         bg_color,
         theme,
-        hide_progress,
         border_radius,
         border_color,
+        show_owner: parseBoolean(show_owner),
         locale: locale ? locale.toLowerCase() : null,
-        layout,
-        langs_count,
-        display_format,
-        disable_animations: parseBoolean(disable_animations),
+        description_lines_count,
       }),
     );
   } catch (err) {

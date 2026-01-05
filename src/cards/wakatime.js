@@ -9,14 +9,10 @@ import { wakatimeCardLocales } from "../translations.js";
 
 /** Import language colors.
  *
- * @description Here we use the workaround found in
- * https://stackoverflow.com/questions/66726365/how-should-i-import-json-in-node
- * since vercel is using v16.14.0 which does not yet support json imports without the
- * --experimental-json-modules flag.
+ * @description Node.js 20+ supports JSON imports with import assertions.
+ * This is compatible with both EdgeOne Pages and Vercel deployments.
  */
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
-const languageColors = require("../common/languageColors.json"); // now works
+import languageColors from "../common/languageColors.json" assert { type: "json" };
 
 const DEFAULT_CARD_WIDTH = 495;
 const MIN_CARD_WIDTH = 250;

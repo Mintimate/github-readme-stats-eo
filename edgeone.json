@@ -1,0 +1,36 @@
+{
+  "build": {
+    "command": "",
+    "output": "."
+  },
+  "routes": [
+    {
+      "source": "/",
+      "destination": "https://github.com/anuraghazra/github-readme-stats"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/*",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "image/svg+xml"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
+      ]
+    }
+  ],
+  "caches": [
+    {
+      "source": "/api/*",
+      "cacheTtl": 86400
+    }
+  ],
+  "nodeFunctionsConfig": {
+    "maxDuration": 30
+  }
+}

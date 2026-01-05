@@ -1,28 +1,25 @@
 // @ts-check
 
-import {
-  measureText,
-  flexLayout,
-  iconWithLabel,
-  createLanguageNode,
-} from "../common/render.js";
 import Card from "../common/Card.js";
 import { getCardColors } from "../common/color.js";
 import { kFormatter, wrapTextMultiline } from "../common/fmt.js";
 import { encodeHTML } from "../common/html.js";
 import { icons } from "../common/icons.js";
 import { parseEmojis } from "../common/ops.js";
+import {
+  createLanguageNode,
+  flexLayout,
+  iconWithLabel,
+  measureText,
+} from "../common/render.js";
+
 
 /** Import language colors.
  *
- * @description Here we use the workaround found in
- * https://stackoverflow.com/questions/66726365/how-should-i-import-json-in-node
- * since vercel is using v16.14.0 which does not yet support json imports without the
- * --experimental-json-modules flag.
+ * @description Node.js 20+ supports JSON imports with import assertions.
+ * This is compatible with both EdgeOne Pages and Vercel deployments.
  */
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
-const languageColors = require("../common/languageColors.json"); // now works
+import languageColors from "../common/languageColors.json" assert { type: "json" };
 
 const ICON_SIZE = 16;
 const CARD_DEFAULT_WIDTH = 400;
@@ -148,5 +145,5 @@ const renderGistCard = (gistData, options = {}) => {
   `);
 };
 
-export { renderGistCard, HEADER_MAX_LENGTH };
+export { HEADER_MAX_LENGTH, renderGistCard };
 export default renderGistCard;
