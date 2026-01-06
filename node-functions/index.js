@@ -75,6 +75,7 @@ const ENDPOINTS = [
     label: { en: "WakaTime", zh: "WakaTime 统计" },
     hint: "?username=ffflabs&layout=compact",
   },
+  { en: "Demo", zh: "演示", url: "https://example.com/demo" },
 ];
 
 const buildSnippets = (baseUrl) => [
@@ -347,6 +348,16 @@ function getHtml(langData, baseUrl) {
         }
       });
       btn.dataset.reset = btn.textContent;
+    });
+
+    const endpointLinks = document.querySelectorAll('.endpoint');
+    endpointLinks.forEach((endpoint) => {
+      endpoint.addEventListener('click', () => {
+        const demoUrl = endpoint.querySelector('.label').dataset.demoUrl;
+        if (demoUrl) {
+          window.open(demoUrl, '_blank');
+        }
+      });
     });
   </script>
 </body>
