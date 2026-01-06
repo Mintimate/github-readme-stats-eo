@@ -20,7 +20,7 @@ GitHub Readme Stats 是一个动态生成 GitHub 统计卡片的工具，现已�
 
 查看 [腾讯云 EdgeOne Pages 文档](https://pages.edgeone.ai/zh/document/product-introduction) 了解更多详情。
 
-> 注意: 需要设置[环境变量](#获取-github-tokenclassic)，之后再触发部署一次以使变量生效。
+> 注意: 需要设置[环境变量](#获取-github-tokenclassic)，每次更改环境变量，需要再触发部署一次以使变量生效。
 
 ### 手动部署
 
