@@ -1,5 +1,7 @@
 # GitHub Readme Stats - EdgeOne Pages 版本
 
+[English](README_EN.md) | 简体中文
+
 本项目基于 [anuraghazra/github-readme-stats](https://github.com/anuraghazra/github-readme-stats) 核心代码，适配 [腾讯云 EdgeOne Pages](https://pages.edgeone.ai) 平台部署。
 
 原项目采用 Vercel 平台部署，本版本专为 EdgeOne Pages 的 Node Functions 环境优化，提供相同的 API 接口和功能。
