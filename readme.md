@@ -32,7 +32,15 @@ GitHub Readme Stats 是一个动态生成 GitHub 统计卡片的工具，现已�
 
 ## 当前已知限制
 
-- EdgeOne Pages 入口节点不支持按请求缓存，卡片接口默认会直接回源。建议在自定义域名前再套一层 CDN（如 EdgeOne CDN / Cloudflare）对静态响应做缓存，缓解 GitHub API 速率压力（还有请求次数的限制）。
+EdgeOne Pages 入口节点不支持按请求缓存，卡片接口默认会直接回源。建议在自定义域名前再套一层 CDN（如 EdgeOne CDN / Cloudflare）对静态响应做缓存，缓解 GitHub API 速率压力（还有请求次数的限制）。
+
+比如: 我使用 EdgeOne 的站点加速，再次套娃 EdgeOne Pages，就可以实现缓存:
+
+![配置回源站点为 EdgeOne Pages](./docs/static/CdnOriginToCdnConfig.webp)
+
+对应的缓存规则:
+
+![配置的回源规则](./docs/static/OriginRulesConfig.webp)
 
 ## 获取 GitHub Token（Classic）
 
