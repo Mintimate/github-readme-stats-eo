@@ -75,18 +75,6 @@ const ENDPOINTS = [
     label: { en: "WakaTime", zh: "WakaTime 统计" },
     hint: "?username=ffflabs&layout=compact",
   },
-  {
-    method: "GET",
-    path: "/api/status/up",
-    label: { en: "Instance health", zh: "可用性" },
-    hint: "?type=shields | json | boolean",
-  },
-  {
-    method: "GET",
-    path: "/api/status/pat-info",
-    label: { en: "PAT status", zh: "PAT 状态" },
-    hint: "Lists valid / expired tokens",
-  },
 ];
 
 const buildSnippets = (baseUrl) => [
