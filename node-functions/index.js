@@ -6,7 +6,6 @@
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
 
 const I18N = {
@@ -75,7 +74,6 @@ const ENDPOINTS = [
     label: { en: "WakaTime", zh: "WakaTime 统计" },
     hint: "?username=ffflabs&layout=compact",
   },
-  { en: "Demo", zh: "演示", url: "https://example.com/demo" },
 ];
 
 const buildSnippets = (baseUrl) => [
@@ -95,8 +93,9 @@ const buildSnippets = (baseUrl) => [
 
 function getHtml(langData, baseUrl) {
   const endpointList = ENDPOINTS.map((item) => {
+    const demoUrl = `${baseUrl}${item.path}${item.hint || ""}`;
     return `
-      <div class="endpoint">
+      <div class="endpoint" data-url="${demoUrl}">
         <span class="method ${item.method.toLowerCase()}">${item.method}</span>
         <div class="endpoint-meta">
           <div class="path">${item.path}</div>
@@ -215,6 +214,7 @@ function getHtml(langData, baseUrl) {
       border-radius: 14px;
       background: rgba(255, 255, 255, 0.02);
       transition: border-color 0.2s ease, transform 0.2s ease;
+      cursor: pointer;
     }
 
     .endpoint:hover { border-color: rgba(110, 231, 183, 0.4); transform: translateY(-2px); }
@@ -353,7 +353,7 @@ function getHtml(langData, baseUrl) {
     const endpointLinks = document.querySelectorAll('.endpoint');
     endpointLinks.forEach((endpoint) => {
       endpoint.addEventListener('click', () => {
-        const demoUrl = endpoint.querySelector('.label').dataset.demoUrl;
+        const demoUrl = endpoint.dataset.url;
         if (demoUrl) {
           window.open(demoUrl, '_blank');
         }
